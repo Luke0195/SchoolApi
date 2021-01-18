@@ -1,3 +1,5 @@
-import teste from './app';
+import app from './app';
 
-teste();
+app.listen(3333, () => {
+  console.log('Server is runing');
+});
