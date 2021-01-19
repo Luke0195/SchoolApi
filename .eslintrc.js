@@ -11,6 +11,8 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+    'no-unused-vars': 'off',
+    camelcase: 'off',
     'no-param-reassign': 'off',
     'no-console': 'off',
     'class-methods-use-this': 'off',
