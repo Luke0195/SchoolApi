@@ -13,7 +13,7 @@ export default {
   },
   storage: multer.diskStorage({
     destination: (request, file, callback) => {
-      callback(null, resolve(__dirname, '..', '..', 'uploads'));
+      callback(null, resolve(__dirname, '..', '..', 'uploads', 'img'));
     },
     filename: (request, file, callback) => {
       callback(null, `${Date.now()}_${random()}${extname(file.originalname)}`);
