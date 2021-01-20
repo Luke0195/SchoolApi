@@ -4,8 +4,17 @@ class UserController {
   async store(request, response) {
     try {
       const user = await User.create(request.body);
-      const { password, password_hash } = user;
-      return response.json(user);
+      const {
+        id, nome, email, created_at, updated_at,
+      } = user;
+      const newUser = {
+        id,
+        nome,
+        email,
+        created_at,
+        updated_at,
+      };
+      return response.json(newUser);
     } catch (error) {
       return response.status(400).json({ message: error.errors.map((erro) => erro.message) });
     }
@@ -13,7 +22,7 @@ class UserController {
 
   async index(request, response) {
     try {
-      const users = await User.findAll();
+      const users = await User.findAll({ attributes: ['id', 'nome', 'email', 'created_at', 'updated_at'] });
 
       return response.json(users);
     } catch (error) {
@@ -28,8 +37,12 @@ class UserController {
       if (!user) {
         return response.status(400).json({ message: 'O usuário não encontrado' });
       }
-
-      return response.json(user);
+      const {
+        id, nome, email, created_at, updated_at,
+      } = user;
+      return response.json({
+        id, nome, email, created_at, updated_at,
+      });
     } catch (error) {
       return response.status(400).json(error);
     }
@@ -37,10 +50,7 @@ class UserController {
 
   async update(request, response) {
     try {
-      if (!request.params.id) {
-        return response.status(400).json({ error: 'Id não enviado ' });
-      }
-      const findUser = await User.findByPk(request.params.id);
+      const findUser = await User.findByPk(request.userId);
 
       if (!findUser) {
         return response.status(400).json({ mesasge: 'usuário não encontrado' });
@@ -55,7 +65,7 @@ class UserController {
 
   async delete(request, response) {
     try {
-      const findUser = await User.findByPk(request.params.id);
+      const findUser = await User.findByPk(request.userId);
       if (!findUser) {
         return response.status(400).json({ message: ' Não foi possivel encontrar o usuário com esse id' });
       }
