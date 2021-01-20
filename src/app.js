@@ -4,6 +4,7 @@ import express from 'express';
 import userRoutes from './routes/userRoutes';
 import sessionRoutes from './routes/sessionRoutes';
 import alunoRoutes from './routes/alunoRoutes';
+import photoRoutes from './routes/photoRoutes';
 import './database';
 
 dotenv.config();
@@ -23,6 +24,7 @@ class App {
     this.app.use('/users', userRoutes);
     this.app.use('/sessions', sessionRoutes);
     this.app.use('/alunos', alunoRoutes);
+    this.app.use('/photos', photoRoutes);
   }
 }
 
