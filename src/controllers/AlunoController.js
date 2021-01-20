@@ -1,4 +1,5 @@
 import Aluno from '../models/Aluno';
+import Photo from '../models/Photo';
 
 class AlunoController {
   async store(request, response) {
@@ -23,7 +24,15 @@ class AlunoController {
 
   async index(request, response) {
     try {
-      const alunos = await Aluno.findAll();
+      const alunos = await Aluno.findAll({
+        attributes: ['id', 'nome', 'sobrenome', 'email', 'idade', 'peso', 'altura'],
+        order: [['id', 'DESC'], [Photo, 'id']],
+        include: {
+          model: Photo,
+          attributes: ['filename'],
+        },
+
+      });
       response.json(alunos);
     } catch (error) {
       response.status(400).json({ error });
@@ -37,7 +46,15 @@ class AlunoController {
         response.status(400).json({ message: 'Missing Id' });
       }
 
-      const aluno = await Aluno.findByPk(id);
+      const aluno = await Aluno.findByPk(id, {
+        attributes: ['id', 'nome', 'sobrenome', 'email', 'idade', 'peso', 'altura'],
+        order: [['id', 'DESC'], [Photo, 'id']],
+        include: {
+          model: Photo,
+          attributes: ['filename'],
+        },
+
+      });
       if (!aluno) {
         response.status(400).json({ message: 'Aluno não encontrado' });
       }

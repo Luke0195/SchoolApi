@@ -17,7 +17,7 @@ class PhotoController {
         const photo = await Photo.create({ originalname, filename, aluno_id });
         return response.json(photo);
       } catch (e) {
-        response.status(400).json(e);
+        response.status(400).json({ message: 'Não é possivel salvar a foto dessa aluno, pois o id não existe' });
       }
     });
   }
