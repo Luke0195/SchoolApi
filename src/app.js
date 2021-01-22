@@ -1,5 +1,7 @@
 import dotenv from 'dotenv';
 import express from 'express';
+import cors from 'cors';
+import helmet from 'helmet';
 import { resolve } from 'path';
 import userRoutes from './routes/userRoutes';
 import sessionRoutes from './routes/sessionRoutes';
@@ -19,6 +21,8 @@ class App {
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
     this.app.use(express.static(resolve(__dirname, '..', 'uploads')));
+    this.app.use(cors());
+    this.app.use(helmet());
   }
 
   routes() {
