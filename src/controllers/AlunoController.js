@@ -29,7 +29,7 @@ class AlunoController {
         order: [['id', 'DESC'], [Photo, 'id']],
         include: {
           model: Photo,
-          attributes: ['filename'],
+          attributes: ['url', 'filename'],
         },
 
       });
