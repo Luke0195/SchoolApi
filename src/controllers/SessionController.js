@@ -21,7 +21,7 @@ class SessionController {
         expiresIn: process.env.TOKEN_EXPIRATION,
       });
 
-      response.json({ token });
+      response.json({ token, user: { nome: user.nome, id, email } });
     } catch (error) {
       response.status(401).json(error);
     }
