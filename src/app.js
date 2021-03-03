@@ -1,8 +1,10 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
+import delay from 'express-delay';
 import helmet from 'helmet';
 import { resolve } from 'path';
+
 import userRoutes from './routes/userRoutes';
 import sessionRoutes from './routes/sessionRoutes';
 import alunoRoutes from './routes/alunoRoutes';
@@ -37,6 +39,7 @@ class App {
     this.app.use(express.static(resolve(__dirname, '..', 'uploads')));
     this.app.use(cors(corsOptions));
     this.app.use(helmet());
+    this.app.use(delay(2000));
   }
 
   routes() {
